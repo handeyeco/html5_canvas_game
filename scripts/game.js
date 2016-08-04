@@ -92,3 +92,44 @@ var reset = function () {
   monster.x = 32 + (Math.random() * (canvas.width - 64));
   monster.y = 32 + (Math.random() * (canavs.height - 64));
 };
+
+/* =============== */
+/* =============== */
+/* Control Objects */
+/* =============== */
+/* =============== */
+var update = function (modifier) {
+  // Up Key
+  if (38 in keysDown) {
+    hero.y -= hero.speed * modifier;
+  }
+  // Down Key
+  if (40 in keysDown) {
+    hero.y += hero.speed * modifier;
+  }
+  // Left Key
+  if (37 in keysDown) {
+    hero.x -= hero.speed * modifier;
+  }
+  // Right Key
+  if (39 in keysDown) {
+    hero.x += hero.speed * modifier;
+  }
+
+  // Hero touching Monster?
+  if (
+    hero.x <= (monster.x + 32) &&
+    monster.x <= (hero.x + 32) &&
+    hero.y <= (monster.y + 32) &&
+    monster.y <= (hero.y + 32)
+  ) {
+    ++monstersCaught;
+    reset();
+  }
+};
+
+/* ============== */
+/* ============== */
+/* Render Objects */
+/* ============== */
+/* ============== */
