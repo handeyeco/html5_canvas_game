@@ -90,7 +90,7 @@ var reset = function () {
   hero.y = canvas.height / 2;
 
   monster.x = 32 + (Math.random() * (canvas.width - 64));
-  monster.y = 32 + (Math.random() * (canavs.height - 64));
+  monster.y = 32 + (Math.random() * (canvas.height - 64));
 };
 
 /* =============== */
@@ -133,3 +133,44 @@ var update = function (modifier) {
 /* Render Objects */
 /* ============== */
 /* ============== */
+var render = function () {
+  if (bgReady) {
+    ctx.drawImage(bgImage, 0, 0);
+  }
+
+  if (heroReady) {
+    ctx.drawImage(heroImage, hero.x, hero.y);
+  }
+
+  if (monsterReady) {
+    ctx.drawImage(monsterImage, monster.x, monster.y);
+  }
+
+  // Display Score
+  ctx.fillStyle = 'rgb(250, 250, 250)';
+  ctx.font = '24px Helvetica';
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'top';
+  ctx.fillText('Monsters caught: ' + monstersCaught, 32, 32);
+};
+
+/* ============= */
+/* ============= */
+/* The Game Loop */
+/* ============= */
+/* ============= */
+var main = function () {
+  var now = Date.now();
+  var delta = now - then;
+
+  update(delta / 1000);
+  render();
+
+  then = now;
+
+  window.requestAnimationFrame(main);
+};
+
+var then = Date.now();
+reset();
+main();
